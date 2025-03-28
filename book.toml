@@ -4,16 +4,16 @@ multilingual = false
 src = "src"
 title = "Introduction to Rust"
 
-[output.html]
-theme = "src/theme"
-additional-css = ["src/media/style.css"]
-
 [output.html.search]
-enable = false
+enable = true
 
 [output.html.playground]
 editable = true
+line-numbers = true
 
 [build]
 create-missing = true
 build-dir = "docs"
+
+[rust]
+edition = "2024"

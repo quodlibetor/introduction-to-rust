@@ -25,7 +25,7 @@
 
 ### Principal engineer - Elastic
 
-Previously tech lead, CTO, architect, trainer, developer...  
+Previously tech lead, CTO, architect, trainer, developer...
 ...at OVH, Actoboard, Sigfox, Scoop.it, Joost, Anyware
 
 Member of the Apache Software Foundation since 2003
@@ -59,16 +59,6 @@ Member of the Apache Software Foundation since 2003
 * Reliability: rich type system & ownership model guarantee memory safety & thread safety.
 * Productivity: great documentation, friendly compiler, awesome tooling.
 
-----------------
-
-# Rust
-
-"Empowering everyone to build reliable and efficient software"
-
-* Performance: blazingly fast and memory efficient.
-* Reliability: rich type system & ownership model guarantee memory safety & thread safety.
-* Productivity: great documentation, friendly compiler, awesome tooling.
-
 <center>
 
 ![](media/ferris.gif)
@@ -77,7 +67,7 @@ Member of the Apache Software Foundation since 2003
 
 ----------------
 
-# Learning Rust
+## Learning Rust
 
 <div style="float: left; width: 40%;">
 
@@ -96,12 +86,12 @@ Member of the Apache Software Foundation since 2003
 
 ----------------
 
-# Rust
+## Rust History
 
 * Started in 2006 at Mozilla, first announced in 2010
   * Primary goals: a fast and secure language
   * Parts of Firefox are written in Rust
-  
+
 * First stable release in 2015
   * New releases every 6 weeks, “edition 2021” released in Oct '21
 
@@ -112,12 +102,12 @@ Member of the Apache Software Foundation since 2003
   * CloudFlare: quic / http 3 implementation
   * Dropbox: file storage
   * Clever Cloud: reverse proxy
-  * Atlassian, Canonical, Coursera, Chef, Deliveroo, NPM, Sentry… 
+  * Atlassian, Canonical, Coursera, Chef, Deliveroo, NPM, Sentry…
   * Growing ecosystem for embedded development
 
 -----------------
 
-# The Rust ecosystem
+## The Rust ecosystem
 
 <div style="float: left; width: 47%;">
 
@@ -129,13 +119,13 @@ Member of the Apache Software Foundation since 2003
 
 **crates.io – there’s a crate for that!**
 
-Twitter: @rustlang, @ThisWeekInRust  
-https://users.rust-lang.org  
+Twitter: @rustlang, @ThisWeekInRust
+https://users.rust-lang.org
 https://exercism.io/
 
-http://www.arewewebyet.org/  
-http://arewegameyet.com/  
-https://areweideyet.com/  
+http://www.arewewebyet.org/
+http://arewegameyet.com/
+https://areweideyet.com/
 http://www.arewelearningyet.com/
 https://docs.rust-embedded.org/
 
@@ -171,9 +161,11 @@ cargo run
 
 # Hello, Rust!
 
+[`[source]`](https://stevedonovan.github.io/rust-gentle-intro/1-basics.html#hello-world)
+
 Cargo.toml
 
-```
+```toml
 [package]
 name = "rust_intro"
 version = "0.1.0"
@@ -193,23 +185,29 @@ fn main() {
 
 ---------------
 
-# Variables & type inference
+# Language basics
+
+
+---------------
+
+## Variables & type inference
 
 &nbsp;
 
 ```rust,editable
 fn main() {
     let answer = 42;
-    
+
     println!("Hello {}", answer);
-    
+
     assert_eq!(answer,42);
 }
 ```
 ---------------
 
-# Control structures
+## Control structures
 
+[`[source]`](https://stevedonovan.github.io/rust-gentle-intro/1-basics.html#looping-and-ifing)
 &nbsp;
 
 ```rust,editable
@@ -226,7 +224,7 @@ fn main() {
 
 ---------------
 
-# If as an expression
+## If as an expression
 
 &nbsp;
 
@@ -241,7 +239,7 @@ fn main() {
 
 ---------------
 
-# Function declaration
+## Function declaration
 
 Parameters and return types must be explicit
 
@@ -260,13 +258,14 @@ fn main() {
 
 ---------------
 
-# Immutability by default
+## Immutability by default
 
+[`[source]`](https://stevedonovan.github.io/rust-gentle-intro/1-basics.html#adding-things-up)
 &nbsp;
 
 ```rust,editable
 fn main() {
-    let mut sum = 0;
+    let sum = 0;
     for i in 0..5 {
         sum += i;
     }
@@ -276,7 +275,24 @@ fn main() {
 
 ---------------
 
-# Functional iteration
+## No automatic type coercion
+
+[`[source]`](https://stevedonovan.github.io/rust-gentle-intro/1-basics.html#adding-things-up)
+&nbsp;
+
+```rust,editable
+fn main() {
+    let sum = 0.0;
+    for i in 0..5 {
+        sum += i;
+    }
+    println!("sum is {}", sum);
+}
+```
+
+---------------
+
+## Functional iteration/Fluent APIs
 
 &nbsp;
 
@@ -290,14 +306,14 @@ fn main() {
         (0..5)                   // this is an iterator
         .filter(|i| is_even(*i)) // filter with a closure
         .sum();                  // consume the iterator
-        
+
     println!("sum of even numbers is {}", sum);
 }
 ```
 
 ---------------
 
-# Passing values by reference
+## Passing values by reference
 
 &nbsp;
 
@@ -308,17 +324,17 @@ fn is_even(i: &i32) -> bool {
 
 fn main() {
     let sum: i32 =
-        (0..5)                   // this is an iterator  
+        (0..5)                   // this is an iterator
         .filter(|i| is_even(i))  // filter with a closure
         .sum();                  // consume the iterator
-            
+
     println!("sum of even numbers is {}", sum);
 }
 ```
 
 ---------------
 
-# Mutable function parameters
+## Mutable function parameters
 
 &nbsp;
 
@@ -338,36 +354,406 @@ fn main() {
 
 <div class="title">
 
-# Vectors, enums, structures
+# Container types
 
 </div>
 
+- Arrays and Slices
+- Vectors and Maps
+- Enums and Structs
+
 ---------------
 
-# Vectors
+# Arrays
 
+[`[source]`](https://stevedonovan.github.io/rust-gentle-intro/1-basics.html#arrays-and-slices)
 &nbsp;
 
 ```rust,editable
 fn main() {
-    let mut v = Vec::new();
-    v.push(10);
-    v.push(20);
-    v.push(30);
+    let arr = [10, 20, 30, 40];
+    let first = arr[0];
+    println!("first {}", first);
 
-    let first = v[0];           // will panic if out-of-range
-    let maybe_first = v.get(0); // returns an Option
+    for i in 0..4 {
+        println!("[{}] = {}", i, arr[i]);
+    }
+    println!("length {}", arr.len());
 
-    println!("v is {:?}", v);
-    println!("first is {}", first);
-    println!("maybe_first is {:?}", maybe_first);
+    println!("five? {}", arr[4]); // guaranteed error
 }
 ```
 
 ---------------
 
-# Some, None? The Option enum
+## Array types
 
+&nbsp;
+
+```rust,editable
+fn main() {
+    let arr = [10, 20, 30, 40];
+    let mut arrsmall = [1, 2, 3];
+    arrsmall = arr;
+
+    takes_array(arr);
+    takes_array(arrsmall);
+}
+
+fn takes_array(a: [i32; 4]) -> i32 {
+    a[0]
+}
+```
+
+---------------
+
+# Borrowing
+
+&nbsp;
+
+```rust,editable
+// read as: slice of i32
+fn sum(values: &[i32]) -> i32 {
+    let mut res = 0;
+    for i in 0..values.len() { // it knows its len
+        res += values[i]
+    }
+    res
+}
+
+fn main() {
+    let arr = [10, 20, 30, 40];
+    // look at that & -- pronounce this as 'borrow arr' or 'ref arr'
+    let res = sum(&arr);
+    println!("sum {}", res);
+}
+```
+
+<br/>
+<details><summary>commentary</summary>
+Ignore the code of sum for a while, and look at &[i32]. The relationship between
+Rust arrays and slices is similar to that between C arrays and pointers, except
+for two important differences - Rust slices keep track of their size (and will
+panic if you try to access outside that size) and you have to explicitly say
+that you want to pass an array as a slice using the & operator.
+
+A C programmer pronounces & as 'address of'; a Rust programmer pronounces it
+'borrow'. This is going to be the key word when learning Rust. Borrowing is the
+name given to a common pattern in programming; whenever you pass something by
+reference (as nearly always happens in dynamic languages) or pass a pointer in
+C. Anything borrowed remains owned by the original owner.
+</details>
+
+---------------
+
+## Aside: Debug Printing Containers
+
+[`[source]`](https://stevedonovan.github.io/rust-gentle-intro/1-basics.html#slicing-and-dicing)
+&nbsp;
+
+Print substitution has multiple options, the default is `{}` but you can add a
+specifier after a `:` -- `{:?}` uses the `Debug` format instead of the default
+`Display` format, which works for slices and generally should work for
+everything:
+
+```rust,editable
+fn main() {
+    let ints = [1, 2, 3];
+    let floats = [1.1, 2.1, 3.1];
+    let strings = ["hello", "world"];
+    let ints_ints = [[1, 2], [10, 20]];
+
+    println!("ints {:?}", ints);
+    println!("ints inline {ints:?}");
+    println!("floats {floats:?}");
+    println!("strings {strings:?}");
+    // dbg! prints the contents to stderr and returns it, can be inserted anywhere
+    // ... doesn't show up here though because it goes to stderr
+    println!("ints_ints {:?}", dbg!(ints_ints));
+}
+```
+
+---------------
+
+## Sub-slices
+
+&nbsp;
+
+```rust,editable
+fn main() {
+    let ints = [1, 2, 3, 4, 5];
+    let slice1 = &ints[0..2];
+    let slice2 = &ints[1..];  // open range!
+    let slice3 = &ints[2..=4];  // inclusive range!
+
+    println!("ints {:?}", ints);
+    println!("slice1 {:?}", slice1);
+    println!("slice2 {:?}", slice2);
+    println!("slice3 {:?}", slice3);
+}
+```
+
+---------------
+
+## Different kinds of pointers
+
+[`Box`](https://doc.rust-lang.org/std/boxed/struct.Box.html) is how you spell
+"safe pointer to the heap" in Rust.
+&nbsp;
+
+```rust,editable
+fn slice_it(slc: &[u32], until: usize) -> &[u32] {
+    &slc[..until]
+}
+
+fn main() {
+    let arr = &[1, 2, 3, 4, 5];
+    let ary = Box::new([1, 2, 3, 4, 5]);
+
+    println!("subslice: {:?}", slice_it(arr, 3));
+    println!("subslice: {:?}", slice_it(&*ary, 3));
+}
+```
+
+---------------
+
+## The types of Box
+
+Rust uses angle brackets (`<...>`) to denote generics. A `Box` can hold
+anything, so the full definition of the box type looks like `Box<T>`.
+&nbsp;
+
+```rust,editable,no_run
+// conceptual implementation only, real code is more complex
+struct Box<T> {
+    val: *const T, // raw pointer to something of type T
+}
+```
+
+```rust,editable
+fn main() {
+    // all of these type requirements will work
+    let _ = Box::new([1, 2, 3, 4, 5]);
+    let _: Box<_> = Box::new([1, 2, 3, 4, 5]);
+    let _: Box<[u32]> = Box::new([1, 2, 3, 4, 5]);
+    // This will error, but it's a neat trick to reveal the type of a value
+    // let _: () = Box::new([1, 2, 3, 4, 5]);
+}
+```
+
+---------------
+
+## Ignoring the kind of pointer a value is behind
+
+&nbsp;
+
+```rust,editable
+fn slice_it(slc: &[u32], until: usize) -> &[u32] {
+    &slc[..until]
+}
+
+fn take_it(slc: Box<[u32]>, until: usize) -> Box<[u32]> {
+    Box::from(&slc[..until])
+}
+
+fn main() {
+    let arr = [1, 2, 3, 4, 5];
+    let ary = Box::new([1, 2, 3, 4, 5]);
+
+    println!("subslice: {:?}", slice_it(&arr, 3));
+    println!("subslice: {:?}", slice_it(&*ary, 3));
+    println!("subslice: {:?}", take_it(ary, 3));
+    println!("original: {:?}", ary);
+}
+```
+
+---------------
+
+# Structs
+
+&nbsp;
+
+```rust,editable
+struct Person {
+    name: String,
+    age: u16,
+}
+
+fn main() {
+    let p = Person {
+        name: "Ariel Blue".to_string(),
+        age: 30,
+    };
+    println!("This is {}, who is {} years old", p.name, p.age);
+}
+```
+
+---------------
+
+## Struct implementation
+
+&nbsp;
+
+```rust,editable
+struct Person {
+    name: String,
+    age: u16,
+}
+
+impl Person {
+    fn new(name: &str, age: u16) -> Person {
+        Person {
+            name: name.to_string(),
+            age,
+        }
+    }
+}
+
+fn main() {
+    let p = Person::new("Ariel Blue", 30);
+    println!("This is {}, who is {} years old", p.name, p.age);
+}
+```
+
+(`String` are objects, `&str` are string slices)
+
+---------------
+
+## Struct methods
+
+&nbsp;
+
+There is no implicit access to fields on the struct from methods, you must
+explicitly ask for `self`:
+
+```rust,editable
+struct Person {
+    name: String,
+    age: u16,
+}
+
+impl Person {
+    fn new(name: String, age: u16) -> Person {
+        Person { name, age }
+    }
+
+    fn introduction(&self) -> String {
+        format!("This is {}, who is {} years old", self.name, self.age)
+    }
+}
+
+fn main() {
+    let p = Person::new("Ariel Blue".to_string(), 30);
+    println!("introduction: {}", p.introduction());
+}
+```
+
+---------------
+
+## Making your structs debug-printable
+
+&nbsp;
+
+Rust annotations look like `#[...]`:
+
+```rust,editable
+#[derive(Debug)] // <-- automatically implement Debug formatting
+struct Person {
+    name: String,
+    age: u16,
+}
+
+impl Person {
+    fn new(name: String, age: u16) -> Person {
+        Person { name, age }
+    }
+}
+
+fn main() {
+    let p = Person::new("Ariel Blue".to_string(), 30);
+    println!("debug: {p:?}");
+}
+```
+
+---------------
+
+## Variations of `self`
+
+```rust,editable
+#[derive(Debug)]
+struct Person {
+    name: String,
+    age: u16,
+}
+
+impl Person {
+    fn new(name: String, age: u16) -> Person {
+        Person { name, age }
+    }
+
+    fn introduction(&self) -> String {
+        format!("This is {}, who is {} years old", self.name, self.age)
+    }
+
+    fn set_name(&mut self, name: &str) {
+        self.name = name.to_string();
+    }
+
+    fn take_name(self) -> String {
+        self.name
+    }
+}
+
+fn main() {
+    let mut p = Person::new("Ariel Blue".to_string(), 30);
+    println!("{:?}", p);
+
+    p.set_name("Ariel Green");
+    println!("{:?}", p);
+
+    println!("I own the name: {:?}", p.take_name());
+
+    // p has now moved, below will fail to compile
+    // println!("{:?}", p);
+}
+```
+
+---------------
+
+## Variations of self summary
+
+* no `self` argument: associated functions, aka static functions, like the `new` "constructor"
+* `&self` argument: can use the values of the struct, but not change them
+* `&mut self` argument: can modify the values
+* `self` argument: will consume the value, which will move
+
+---------------
+
+# Enums
+
+&nbsp;
+
+```rust,editable
+#[derive(Debug)]
+pub enum StringOrInt {
+    Str(String),
+    Int(i64),
+    Nope,
+}
+
+fn main() {
+    let is_int = StringOrInt::Int(1);
+    let is_neither = StringOrInt::Nope;
+
+    println!("what I got: {is_int:?}, maybe I got it: {is_neither:?}")
+}
+```
+
+---------------
+
+## Some, None? The Option enum
+
+[`[docs]`](https://doc.rust-lang.org/std/option/)
 &nbsp;
 
 ```rust,no_run
@@ -379,34 +765,45 @@ pub enum Option<T> {
 
 ---------------
 
-# Pattern matching
+## Pattern matching: match
 
+`Option` [has lots of useful inherent methods](https://doc.rust-lang.org/std/option/).
 &nbsp;
 
 ```rust,editable
-fn main() {
-    let v = vec![10, 20, 30]; // initialization macro    
-    let idx = 0;
-    
-    match v.get(idx) {
-        Some(value) => println!("Value is {}", value),
-        None => println!("No value..."),
+pub enum Opt<T> {
+    None,
+    Some(T),
+}
+
+impl<T> Opt<T> {
+    fn is_some(&self) -> bool {
+        match self {
+            Opt::Some(_) => true,
+            Opt::None => false,
+        }
     }
+}
+
+fn main() {
+    let o = Opt::Some(1);
+    let n: Opt<()> = Opt::None;
+
+    println!("my opts: o => {} n => {}", o.is_some(), n.is_some());
 }
 ```
 
 ---------------
 
-# Destructuring assigment
+## Pattern matching: destructuring assigment
 
 &nbsp;
 
 ```rust,editable
 fn main() {
-    let v = vec![10, 20, 30];    
-    let idx = 0;
-    
-    if let Some(value) = v.get(idx) {
+    let v = Option::Some("wow");
+
+    if let Some(value) = v {
         println!("Value is {}", value);
     }
 }
@@ -414,7 +811,7 @@ fn main() {
 
 ---------------
 
-# More pattern matching
+## More pattern matching
 
 &nbsp;
 
@@ -429,6 +826,107 @@ fn main() {
     };
 
     println!("{} is {}", n, text);
+}
+```
+
+
+---------------
+
+# Vectors
+
+Vectors are growable arrays.
+&nbsp;
+
+```rust,editable
+fn main() {
+    let mut v = Vec::new();
+    v.push(10);
+    v.push(20);
+    v.push(30);
+
+    let first = v[0];
+
+    println!("v is {:?}", v);
+    println!("first is {}", first);
+}
+```
+
+---------------
+
+## Safe access
+
+&nbsp;
+
+```rust,editable
+fn main() {
+    let v = vec![10, 20, 30]; // initialization macro
+    let idx = 0;
+
+    match v.get(idx) {
+        Some(value) => println!("Value is {}", value),
+        None => println!("No value..."),
+    }
+}
+```
+
+---------------
+
+## Vector pseudo implementation
+
+Honestly this is too complex for this stage, and yet doing this for real is
+[even more work](https://doc.rust-lang.org/nomicon/vec/vec.html).
+&nbsp;
+
+```rust,editable
+#[derive(Debug)]
+struct MyVec<T> {
+    inner: Box<[T]>,
+    size: usize,
+    capacity: usize,
+}
+
+impl<T> MyVec<T> {
+    fn new() -> MyVec<T> { MyVec { inner: Box::from([]), size: 0, capacity: 0 } }
+
+    fn push(&mut self, val: T)
+        where T: Default + Clone // this is so that we can cheat
+    {
+        if self.size == self.capacity {
+            let new_cap = (self.capacity + 1) * 2;
+            let mut new_inner: Box<[T]> = vec![T::default(); new_cap].into_boxed_slice();
+            let mut old_inner: Box<[T]> = Box::from([]);
+            std::mem::swap(&mut self.inner, &mut old_inner);
+            for (i, v) in old_inner.into_iter().enumerate() {
+                new_inner[i] = v;
+            }
+            std::mem::swap(&mut self.inner, &mut new_inner);
+            self.capacity = new_cap;
+        }
+        self.inner[self.size] = val;
+        self.size += 1;
+    }
+
+    fn get(&self, idx: usize) -> Option<&T> {
+        if idx < self.size {
+            Some(&self.inner[idx])
+        } else {
+            None
+        }
+    }
+}
+
+fn main() {
+    let mut v = MyVec::new();
+    v.push(10);
+    v.push(20);
+    v.push(30);
+
+    let first = v.get(0);
+    let nope = v.get(4);
+
+    println!("v is {:?}", v);
+    println!("first is {:?}", first);
+    println!("nope is {:?}", nope);
 }
 ```
 
@@ -457,142 +955,37 @@ fn main() {
 
 ---------------
 
-# Structs
+# Algebraic Data Types (ADTs)
 
-&nbsp;
+The "Algebraic" in ADTs refers to being able to represent any algebraic
+combination of types in the type system.
+
 
 ```rust,editable
-struct Person {
-    first_name: String,
-    last_name: String
+struct Multiplication {
+    name: String,
+    age: u8,
 }
 
-fn main() {
-    let p = Person {
-        first_name: "John".to_string(),
-        last_name: "Smith".to_string()
-    };
-    println!("This is {} {}", p.first_name, p.last_name);
+enum Addition {
+    One,
+    Two,
 }
+
+enum Polynomial {
+    Addable(Addition),
+    Mult(Multiplication),
+    Combined(Addition, Multiplication),
+}
+
+# fn main() {}
 ```
 
----------------
+The `Multiplication` type here represents a type that can have all the values
+that `String` can have, and all the values that `u8` can have, so its notation
+in the type algebra is `String * u8` (string times u8).
 
-# Struct implementation
-
-```rust,editable
-struct Person {
-    first_name: String,
-    last_name: String
-}
-
-impl Person {
-    fn new(first: &str, name: &str) -> Person {
-        Person {
-            first_name: first.to_string(),
-            last_name: name.to_string()
-        }
-    }
-}
-
-fn main() {
-    let p = Person::new("John","Smith");
-    println!("This is {} {}", p.first_name,p.last_name);
-}
-```
-
-(`String` are objects, `&str` are references to char arrays)
-
----------------
-
-# Struct methods
-
-```rust,editable
-struct Person {
-    first_name: String,
-    last_name: String
-}
-
-impl Person {
-    fn new(first: &str, name: &str) -> Person {
-        Person {
-            first_name: first.to_string(),
-            last_name: name.to_string()
-        }
-    }
-    
-    fn full_name(&self) -> String {
-        format!("{} {}", self.first_name, self.last_name)
-    }
-
-}
-
-fn main() {
-    let p = Person::new("John","Smith");
-    println!("This is {}", p.full_name());
-}
-
-```
-
----------------
-
-# Variations on `self`
-
-```rust,editable
-#[derive(Debug)]
-struct Person {
-    first_name: String,
-    last_name: String
-}
-
-impl Person {
-    fn new(first: &str, name: &str) -> Person {
-        Person {
-            first_name: first.to_string(),
-            last_name: name.to_string()
-        }
-    }
-
-    fn full_name(&self) -> String {
-        format!("{} {}",self.first_name, self.last_name)
-    }
-
-    fn set_first_name(&mut self, name: &str) {
-        self.first_name = name.to_string();
-    }
-
-    fn to_tuple(self) -> (String, String) {
-        (self.first_name, self.last_name)
-    }
-}
-
-fn main() {
-    let mut p = Person::new("John","Smith");
-    println!("{:?}", p);
-
-    p.set_first_name("Jane");
-    println!("{:?}", p);
-
-    println!("{:?}", p.to_tuple());
-    
-    // p has now moved, below will fail to compile
-    // println!("{:?}", p);
-}
-```
-
----------------
-
-# Struct implementations: wrapping up
-
-
-* no `self` argument: associated functions, like the `new` "constructor"
-
-* `&self` argument: can use the values of the struct, but not change them
-
-* `&mut self` argument: can modify the values
-
-* `self` argument: will consume the value, which will move
-
+Really, people just say ADTs when a language supports value-carrying enums.
 
 ---------------
 
@@ -627,16 +1020,16 @@ fn borrow_it(p: &Person) {
 }
 
 fn main() {
-    let p = Person::new("John");
+    let p = Person::new("Adrien");
     println!("{:?}", p);
-    
+
     // let x = p;  // moving p will break the code below
     // println!("{:?}", x);
-    
+
     borrow_it(&p);
     println!("{:?}", p);
-    
-    take_ownership(p);    
+
+    take_ownership(p);
     // println!("{:?}", p); // will fail
 }
 ```
@@ -775,7 +1168,7 @@ impl<T: Ord> Node<T> {
     fn set_right(&mut self, node: Node<T>) {
         self.right = Some(Box::new(node));
     }
-    
+
     fn insert(&mut self, data: T) {
         if data < self.value {       // <-- Ord is used here
             match self.left {
@@ -807,7 +1200,7 @@ fn main() {
 
 # Automatic memory reclamation
 
-### Memory leaks, resource leaks? Gone!
+**Memory leaks, resource leaks? Gone!**
 
 </div>
 
@@ -835,11 +1228,11 @@ fn main() {
 
     let mut b = Box::new(DropTracer(1));
     println!("b contains {}", b.0);
-    
+
     println!("Replacing b");
     b = Box::new(DropTracer(2));
     println!("b contains {}", b.0);
-   
+
     println!("Exiting");
 }
 ```
@@ -858,10 +1251,10 @@ use std::io::Read;
 fn read_file() -> String {
     let mut text = String::new();
     let path = Path::new("file.txt");
-    
+
     let mut file = File::open(path).unwrap();
     file.read_to_string(&mut text).unwrap();
-    
+
     return text;
 }
 
@@ -902,10 +1295,10 @@ use std::io::Read;
 fn read_file() -> Result<String, std::io::Error> {
     let mut text = String::new();
     let path = Path::new("file.txt");
-    
+
     let mut file = File::open(path)?;
     file.read_to_string(&mut text)?;
-    
+
     return Ok(text);
 }
 
@@ -940,13 +1333,8 @@ If you want to use it, take the time to _learn_ it. Ferris will thank you :-)
 ![](media/ferris.gif)
 
 &nbsp;
-
 &nbsp;
 
-<span style="font-size: 70%">
-    Presentation contents inspired by https://stevedonovan.github.io/rust-gentle-intro/<br>
-    Sources available at https://github.com/swallez/introduction-to-rust/
-</span>
-
+Presentation contents inspired by [https://stevedonovan.github.io/rust-gentle-intro/](https://stevedonovan.github.io/rust-gentle-intro/)<br>
+Sources available at [https://github.com/swallez/introduction-to-rust](https://github.com/swallez/introduction-to-rust)
 </div>
-

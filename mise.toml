@@ -1,0 +1,14 @@
+[tools]
+mdbook = "latest"
+watchexec = "latest"
+
+[tasks.build]
+run = ["./src/split-slides.sh", "mdbook build"]
+
+[tasks.serve]
+run = ["./src/split-slides.sh", "mdbook serve"]
+
+[tasks.watch]
+run = [
+  "watchexec --watch src/all-slides.md --watch src/split-slides.sh --watch mise.toml -- ./src/split-slides.sh",
+]
